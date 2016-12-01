@@ -5,22 +5,42 @@ import React, { Component } from 'react';
 class App extends Component {
   constructor(props){
     super(props)
-    if(!localStorage.getItem('todos') || localStorage.getItem('todos') === '[]'){
-      localStorage.setItem('todos',JSON.stringify(['Take Out Trash', 'Clean Garage','Sweep Floor']))
+    let listItems = JSON.parse(localStorage.getItem('todos'));
+    if(!listItems || listItems.length === 0){
+      listItems= [
+        {
+          text: <strong>Please Enter List</strong>,
+          completed:false
+        },
+        {
+          text:'Take Out Trash',
+          completed:false
+        },{
+          text:'Clean Garage',
+          completed: false
+        },{
+          text:'Sweep Floor',
+          completed:false
+        }
+      ]
     }
     this.state= {
-      todos: JSON.parse(localStorage.getItem('todos')),
+      todos: listItems,
       newItemValue: ''
     }
   }
   whenSubmit(e){
     e.preventDefault();
     console.log(this.state.newItemValue);
+    let newToDo = {
+      text:this.state.newItemValue,
+      completed:false
+    }
     this.setState({
-      todos: this.state.todos.concat([this.state.newItemValue]),
+      todos: this.state.todos.concat([newToDo]),
       newItemValue: ''
     })
-    localStorage.setItem('todos', JSON.stringify(this.state.todos.concat([this.state.newItemValue])))
+    localStorage.setItem('todos', JSON.stringify(this.state.todos.concat([newToDo])))
 
   }
 
@@ -54,7 +74,7 @@ class App extends Component {
         {
           this.state.todos.map((todo, index)=>{
             return(
-              <li onClick={this.whenClicked.bind(this, index)} key={index}>{todo}</li>
+              <li onClick={this.whenClicked.bind(this, index)} key={index}>{todo.text}</li>
             )
           }
         )
