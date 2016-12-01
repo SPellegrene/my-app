@@ -1,11 +1,15 @@
 //imports the Component attribute from react
 import React, { Component } from 'react';
+// import moment from 'moment';
 //Component 1
 class App extends Component {
   constructor(props){
     super(props)
+    if(!localStorage.getItem('todos') || localStorage.getItem('todos') === '[]'){
+      localStorage.setItem('todos',JSON.stringify(['Take Out Trash', 'Clean Garage','Sweep Floor']))
+    }
     this.state= {
-      todos:['Take Out Trash', 'Clean Grandma','Sweep Poop'],
+      todos: JSON.parse(localStorage.getItem('todos')),
       newItemValue: ''
     }
   }
@@ -16,6 +20,8 @@ class App extends Component {
       todos: this.state.todos.concat([this.state.newItemValue]),
       newItemValue: ''
     })
+    localStorage.setItem('todos', JSON.stringify(this.state.todos.concat([this.state.newItemValue])))
+
   }
 
   whenClicked(index, e){
@@ -25,6 +31,7 @@ class App extends Component {
     this.setState({
       todos:head.concat(tail)
     })
+    localStorage.setItem('todos', JSON.stringify(head.concat(tail)))
   }
 
   whenChanged(e){
@@ -36,11 +43,11 @@ class App extends Component {
   render() {
 //return always returns the render in React
     return(
-//We are now creating a div, this is essentially just a plce where things will be placed on the page
+//We are now creating a div, this is essentially just a place where things will be placed on the page
       <div className="App">
-        <h3>To-Do List</h3>
+        <h3>To-Do list. Nothing else.</h3>
         <form onSubmit={this.whenSubmit.bind(this)}>
-          <input onChange={this.whenChanged.bind(this)} value={this.state.newItemValue} type="text" placeholder="HardPoop" />
+          <input onChange={this.whenChanged.bind(this)} value={this.state.newItemValue} type="text" placeholder=" Enter Task Here" />
           <button>Add</button>
         </form>
         <ul>
@@ -53,9 +60,11 @@ class App extends Component {
         )
         }
         </ul>
+        <h5>Click on items to delete.</h5>
+
       </div>
     );
   }
 }
-//This is boiler plate as well, however can go on the same line where the class is created as well. Personal preference.
+//This is boiler plate, however can go on the same line where the class is created as well. Personal preference.
 export default App;
