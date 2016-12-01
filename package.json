@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://SPellegrene.github.io/myapp",
+  "homepage": "http://SPellegrene.github.io/my-app",
   "devDependencies": {
     "react-scripts": "0.7.0"
   },
