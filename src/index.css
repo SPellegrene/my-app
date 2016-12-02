@@ -2,15 +2,18 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  /*background-color: beige;*/
+  background-image: url("../src/man.jpg");
+  background-size:cover;
+
 }
 
 #root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: beige;
-  margin-left: 5rem;
-  margin-right: 5rem;
+  /*margin-left: 5rem;
+  margin-right: 5rem;*/
 }
 
 .App {
@@ -21,10 +24,14 @@ body {
 }
 
 ul {
+  display: flex;
+  flex-direction: column;
   list-style: none;
   padding: 0;
   line-height: 2rem;
   cursor: pointer;
+  /*outline: 2px solid red;*/
+
 }
 
 form {
@@ -55,8 +62,36 @@ button {
 
 li {
   display: flex;
-  flex-direction: column;
   align-items: center;
   /*outline: 2px solid red;*/
   font-family: sans-serif;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  /*outline: 2px solid red;*/
+}
+
+.ion-ios-close {
+  /*outline: 2px solid green;*/
+  display: flex;
+  margin-right: 2rem;
+}
+.ion-ios-close:hover {
+  color: red;
+  display: flex;
+  margin-right: 1rem;
+}
+
+span {
+  font-weight:lighter;
+  font-family: sans-serif;
+  font-size: 18px;
+}
+span:hover {
+  font-weight:lighter;
+  font-family: sans-serif;
+  font-size: 24px;
+  cursor: crosshair;
 }

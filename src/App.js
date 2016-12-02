@@ -9,10 +9,6 @@ class App extends Component {
     if(!listItems || listItems.length === 0){
       listItems= [
         {
-          text: <strong>Please Enter List</strong>,
-          completed:false
-        },
-        {
           text:'Take Out Trash',
           completed:false
         },{
@@ -44,14 +40,27 @@ class App extends Component {
 
   }
 
-  whenClicked(index, e){
+  whenDeleteClicked(index, e){
     console.log('people', index);
+
     var head=this.state.todos.slice(0,index);
     var tail=this.state.todos.slice(index +1, this.state.todos.length);
     this.setState({
       todos:head.concat(tail)
     })
     localStorage.setItem('todos', JSON.stringify(head.concat(tail)))
+  }
+
+  whenCompletedClicked(index, e){
+    let newItems = this.state.todos.slice(0);
+    newItems[index].completed=!newItems[index].completed;
+    this.setState({
+      todos: newItems
+    })
+    localStorage.setItem(
+      'todos', JSON.stringify(newItems))
+
+
   }
 
   whenChanged(e){
@@ -65,7 +74,7 @@ class App extends Component {
     return(
 //We are now creating a div, this is essentially just a place where things will be placed on the page
       <div className="App">
-        <h3>To-Do list. Nothing else.</h3>
+        <h3>Get Your Stuff Done</h3>
         <form onSubmit={this.whenSubmit.bind(this)}>
           <input onChange={this.whenChanged.bind(this)} value={this.state.newItemValue} type="text" placeholder=" Enter Task Here" />
           <button>Add</button>
@@ -74,7 +83,11 @@ class App extends Component {
         {
           this.state.todos.map((todo, index)=>{
             return(
-              <li onClick={this.whenClicked.bind(this, index)} key={index}>{todo.text}</li>
+              <li>
+              <i className="ion-ios-close" onClick={this.whenDeleteClicked.bind(this, index)}/>
+              <span onClick={this.whenCompletedClicked.bind(this, index)} style={{textDecoration: todo.completed ? 'line-through':'none'}} key={index}>{todo.text}</span>
+              </li>
+
             )
           }
         )
